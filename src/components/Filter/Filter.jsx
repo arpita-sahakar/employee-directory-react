@@ -1,4 +1,4 @@
-const Filter = () => {
+const Filter = (props) => {
   return (
     <div>
       <form className="bg-moon-gray mw7 center pa1 br2-ns ba b--black-10 mb4">
@@ -11,8 +11,9 @@ const Filter = () => {
               placeholder="Enter name to filter Employees"
               type="text"
               name="employeeName"
-              value=""
+              value={props.filter}
               id="employeeName"
+              onChange = {props.handleChange}
             />
 
           </div>

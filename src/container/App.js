@@ -8,35 +8,60 @@ import API from "../utils/API";
 function App() {
   // state constants to store results from api-call
   const [result, setResult] = useState([]);
-  const [sortCategory, setSortCategory] = useState("");
+  const [filter, setFilter] = useState("");
 
-  const sortEmployees =(orderBy, propertyClicked)=>{
-    let firstValue = 1;
-    let secondValue = -1;
-    if (orderBy === "descending"){
+  //With this function descending sort can also be handled
+  const sortEmployees = (orderBy, propertyClicked) => {
+    let firstValue;
+    let secondValue;
+
+    if (orderBy === "ascending") {
+      firstValue = 1;
+      secondValue = -1;
+    } else if (orderBy === "descending") {
       firstValue = -1;
       secondValue = 1;
     }
-     // sort result based on property clicked
-     if (propertyClicked === "nme") {
+    // sort result based on property clicked on ascending order
+    if (propertyClicked === "nme") {
       setResult(
-        result.map((r) => r).sort((a, b) => (a.name > b.name ? firstValue : secondValue))
+        result
+          .map((r) => r)
+          .sort((a, b) => (a.name > b.name ? firstValue : secondValue))
       );
     } else if (propertyClicked === "eml") {
       setResult(
-        result.map((r) => r).sort((a, b) => (a.email > b.email ? firstValue : secondValue))
+        result
+          .map((r) => r)
+          .sort((a, b) => (a.email > b.email ? firstValue : secondValue))
       );
     } else if (propertyClicked === "dob") {
-      setResult(result.map((r) => r).sort((a, b) => (a.dob > b.dob ? firstValue : secondValue)));
+      setResult(
+        result
+          .map((r) => r)
+          .sort((a, b) => (a.dob > b.dob ? firstValue : secondValue))
+      );
     } else if (propertyClicked === "cont") {
-      setResult(result.map((r) => r).sort((a, b) => (a.contact > b.contact ? firstValue : secondValue)));
+      setResult(
+        result
+          .map((r) => r)
+          .sort((a, b) => (a.contact > b.contact ? firstValue : secondValue))
+      );
     }
-    // sort the result based on the property clicked
-  }
+  };
+  const filterData = (data) => {
+    let resultAfterFilter = data.filter(
+      (employee) => employee.name.toLowerCase().indexOf(filter) > -1
+    );
+    return resultAfterFilter;
+  };
+  const handleChange = (event) => {
+    setFilter(event.target.value);
+    console.log(event.target.value);
+  };
 
   const handleClick = (propertyClicked) => {
-    console.log(propertyClicked);
-   sortEmployees("ascending", propertyClicked);
+    sortEmployees("ascending", propertyClicked);
   };
 
   useEffect(() => {
@@ -62,8 +87,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Filter />
-      <Table employees={result} handleClick={handleClick} />
+      <Filter handleChange={handleChange} filter={filter} />
+      <Table employees={filterData(result)} handleClick={handleClick} />
     </div>
   );
 }
