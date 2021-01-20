@@ -8,6 +8,36 @@ import API from "../utils/API";
 function App() {
   // state constants to store results from api-call
   const [result, setResult] = useState([]);
+  const [sortCategory, setSortCategory] = useState("");
+
+  const sortEmployees =(orderBy, propertyClicked)=>{
+    let firstValue = 1;
+    let secondValue = -1;
+    if (orderBy === "descending"){
+      firstValue = -1;
+      secondValue = 1;
+    }
+     // sort result based on property clicked
+     if (propertyClicked === "nme") {
+      setResult(
+        result.map((r) => r).sort((a, b) => (a.name > b.name ? firstValue : secondValue))
+      );
+    } else if (propertyClicked === "eml") {
+      setResult(
+        result.map((r) => r).sort((a, b) => (a.email > b.email ? firstValue : secondValue))
+      );
+    } else if (propertyClicked === "dob") {
+      setResult(result.map((r) => r).sort((a, b) => (a.dob > b.dob ? firstValue : secondValue)));
+    } else if (propertyClicked === "cont") {
+      setResult(result.map((r) => r).sort((a, b) => (a.contact > b.contact ? firstValue : secondValue)));
+    }
+    // sort the result based on the property clicked
+  }
+
+  const handleClick = (propertyClicked) => {
+    console.log(propertyClicked);
+   sortEmployees("ascending", propertyClicked);
+  };
 
   useEffect(() => {
     // call API and set the result using set result
@@ -25,7 +55,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        alert("something went wrong..:(")
+        alert("something went wrong..:(");
       });
   }, []);
 
@@ -33,7 +63,7 @@ function App() {
     <div className="App">
       <Header />
       <Filter />
-      <Table employees={result} />
+      <Table employees={result} handleClick={handleClick} />
     </div>
   );
 }
