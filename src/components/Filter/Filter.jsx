@@ -1,7 +1,7 @@
 const Filter = () => {
   return (
     <div>
-      <form className="bg-moon-gray mw7 center pa1 br2-ns ba b--black-10">
+      <form className="bg-moon-gray mw7 center pa1 br2-ns ba b--black-10 mb4">
         <fieldset className="cf bn ma0 pa0">
 
           <div className="cf">

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "../components/Header/Header.jsx";
 import Filter from "../components/Filter/Filter.jsx";
-import Table from "../components/Table/Table.jsx";
+import Table from "../components/Table/Table";
 import API from "../utils/API";
 
 function App() {
@@ -13,10 +13,19 @@ function App() {
     // call API and set the result using set result
     API.fetchEmployees()
       .then((res) => {
-        setResult(res.data.results);
+        let formattedEmpDetails = res.data.results.map((emp) => {
+          return {
+            name: `${emp.name.first} ${emp.name.last}`,
+            email: emp.email,
+            dob: emp.dob.date,
+            contact: emp.cell,
+          };
+        });
+        setResult(formattedEmpDetails);
       })
       .catch((err) => {
         console.log(err);
+        alert("something went wrong..:(")
       });
   }, []);
 
@@ -24,7 +33,7 @@ function App() {
     <div className="App">
       <Header />
       <Filter />
-      <Table listOfEmployees={result} />
+      <Table employees={result} />
     </div>
   );
 }
