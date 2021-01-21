@@ -9,43 +9,24 @@ function App() {
   // state constants to store results from api-call
   const [result, setResult] = useState([]);
   const [filter, setFilter] = useState("");
+  const [sortField, setSortField] = useState({
+    propertyClicked: "",
+    orderBy: "ascending",
+  });
 
-  //With this function descending sort can also be handled
+  // sort result based on property clicked on ascending  and descending order
   const sortEmployees = (orderBy, propertyClicked) => {
-    let firstValue;
-    let secondValue;
-
     if (orderBy === "ascending") {
-      firstValue = 1;
-      secondValue = -1;
+      setResult(
+        result
+          .map((r) => r)
+          .sort((a, b) => (a[propertyClicked] > b[propertyClicked] ? 1 : -1))
+      );
     } else if (orderBy === "descending") {
-      firstValue = -1;
-      secondValue = 1;
-    }
-    // sort result based on property clicked on ascending order
-    if (propertyClicked === "nme") {
       setResult(
         result
           .map((r) => r)
-          .sort((a, b) => (a.name > b.name ? firstValue : secondValue))
-      );
-    } else if (propertyClicked === "eml") {
-      setResult(
-        result
-          .map((r) => r)
-          .sort((a, b) => (a.email > b.email ? firstValue : secondValue))
-      );
-    } else if (propertyClicked === "dob") {
-      setResult(
-        result
-          .map((r) => r)
-          .sort((a, b) => (a.dob > b.dob ? firstValue : secondValue))
-      );
-    } else if (propertyClicked === "cont") {
-      setResult(
-        result
-          .map((r) => r)
-          .sort((a, b) => (a.contact > b.contact ? firstValue : secondValue))
+          .sort((a, b) => (a[propertyClicked] > b[propertyClicked] ? -1 : 1))
       );
     }
   };
@@ -60,8 +41,17 @@ function App() {
     console.log(event.target.value);
   };
 
-  const handleClick = (propertyClicked) => {
-    sortEmployees("ascending", propertyClicked);
+  const handleClick = (propertyClickedKey) => {
+    let sortedOrder = "ascending";
+    if (
+      sortField.propertyClicked === propertyClickedKey &&
+      sortField.orderBy === "ascending"
+    ) {
+      sortedOrder = "descending";
+    }
+    setSortField({ propertyClicked: propertyClickedKey, orderBy: sortedOrder });
+
+    sortEmployees(sortedOrder, propertyClickedKey);
   };
 
   useEffect(() => {
