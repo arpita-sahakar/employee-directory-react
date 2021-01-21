@@ -21,7 +21,7 @@
 
 ### Live application
 
-[Click here!!!](https://still-spire-54332.herokuapp.com/)
+[Click here!!!](https://arpita-sahakar.github.io/employee-directory-react/)
 
 
   ## Table of Contents
