@@ -10,23 +10,14 @@
 
   *  Helps the user to sort every columns of the table in ascending order
 
-  * Filter the employees by name.
+  * Filter the employees by name, dob, contact & email.
 
   > This UI application is created with React. The application is broken into three components - Filter, Header, Table. And it has one container - App.js
 
-## List Of Employees
-* Initial Budget DB
+## Screen Shot
 ![List Of Employees](./public/images/listOfEmp.jpg)
 
-### Filter Employee List By Name
-* Manifest
-![Filter By Name](./public/images/filterByName.jpg)
 
-### Index Database
-* Sort Employee List In Ascending Order
-![Sort Employee List In Ascending Order](./public/images/sortedInAscendOr.jpg)
-
-)
 
 ### Live application
 
@@ -60,7 +51,7 @@
   ## Usage 
    Run the following command to start the server
   ```bash
-  node server.js
+  npm start
   ```
 
 
