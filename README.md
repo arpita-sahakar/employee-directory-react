@@ -15,7 +15,7 @@
   > This UI application is created with React. The application is broken into three components - Filter, Header, Table. And it has one container - App.js
 
 ## Screen Shot
-![List Of Employees](./public/images/listOfEmp.jpg)
+![List Of Employees](./public/images/listOfEmp.JPG)
 
 
 
